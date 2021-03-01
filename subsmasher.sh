@@ -32,7 +32,7 @@ ls -l
 echo "[*] Launching SubScraper"
 python3 subscraper.py $TARGET -o $OUT_DIR/subscraper.txt &> /dev/null 
 ls -l
-
+ls -l $OUT_DIR
 cd $TOOLS_DIR/Sublist3r
 echo "[*] Launching Sublist3r"
 python3 sublist3r.py -d $TARGET -o $OUT_DIR/sublist3r.txt &> /dev/null &
