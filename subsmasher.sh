@@ -28,8 +28,10 @@ TOOLS_DIR=$(pwd)/tools
 echo [*] Running Subsmasher : ${TARGET}
 
 cd $TOOLS_DIR/subscraper
+ls -l
 echo "[*] Launching SubScraper"
-python3 subscraper.py $TARGET -o $OUT_DIR/subscraper.txt &> /dev/null &
+python3 subscraper.py $TARGET -o $OUT_DIR/subscraper.txt &> /dev/null 
+ls -l
 
 cd $TOOLS_DIR/Sublist3r
 echo "[*] Launching Sublist3r"
