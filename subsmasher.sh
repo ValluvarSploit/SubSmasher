@@ -2,8 +2,8 @@
 
 help() {
    echo "Usage: subsmasher.sh -d example.com -o subdomains.txt"
-   echo "\t-d Domain Name\n"
-   echo "\t-o Output File Name\n"
+   echo -e "\t-d Domain Name"
+   echo -e "\t-o Output File Name"
    exit 1
 }
 
@@ -51,7 +51,7 @@ echo "[*] Launching Amass"
 amass enum -passive -d $TARGET > $OUT_DIR/amass.txt &
 
 echo "[*] Launching Certspotter"
-curl -s "https://api.certspotter.com/v1/issuances?domain=$TARGET&expand=dns_names" | ./$TOOLS_DIR/jq/jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | grep $TARGET > $OUT_DIR/certspotter.txt &
+curl -s "https://api.certspotter.com/v1/issuances?domain=$TARGET&expand=dns_names" | .$TOOLS_DIR/jq/jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | grep $TARGET > $OUT_DIR/certspotter.txt &
 
 echo "[*] Launching Crt.sh"
 curl -s "https://crt.sh/?q=%.$TARGET" | grep $TARGET | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " > $OUT_DIR/crtsh.txt &
