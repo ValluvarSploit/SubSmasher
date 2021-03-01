@@ -54,7 +54,6 @@ echo "[*] Launching Certspotter"
 cd $TOOLS_DIR/jq
 curl -s "https://api.certspotter.com/v1/issuances?domain=$TARGET&expand=dns_names" | ./jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | grep $TARGET > $OUT_DIR/certspotter.txt &
 
-
 echo "[*] Launching Crt.sh"
 curl -s "https://crt.sh/?q=%.$TARGET" | grep $TARGET | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " > $OUT_DIR/crtsh.txt &
 
@@ -62,7 +61,6 @@ echo "[*] Waiting until all scripts complete..."
 wait
 
 cd $OUT_DIR
-ls -l
 (cat subscraper.txt sublist3r.txt assetfinder.txt subfinder.txt findomain.txt amass.txt certspotter.txt crtsh.txt | sort -u) > $OUTPUT
 rm subscraper.txt sublist3r.txt assetfinder.txt subfinder.txt findomain.txt amass.txt certspotter.txt crtsh.txt
 
