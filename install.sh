@@ -40,16 +40,22 @@ cd ../
 
 sudo snap install amass
 
+ls -l
 mkdir -p jq
+ls -l
 cd jq
+ls -l
 wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 
+ls -l
 mv jq-linux64 jq 
 chmod +x jq
+ls -l
 cd ../
+ls -l
 
 mkdir -p findomain
 cd findomain
 wget https://github.com/Findomain/Findomain/releases/download/2.1.5/findomain-linux 
 mv findomain-linux findomain
 chmod +x findomain
-
+ls -l
