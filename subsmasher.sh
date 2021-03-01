@@ -24,6 +24,7 @@ fi
 
 OUT_DIR=$(pwd)
 TOOLS_DIR=$(pwd)/tools
+echo $OUT_DIR
 
 echo [*] Running Subsmasher : ${TARGET}
 
@@ -50,8 +51,12 @@ echo "[*] Launching Findomain"
 echo "[*] Launching Amass"
 amass enum -passive -d $TARGET > $OUT_DIR/amass.txt &
 
+echo $TOOLS_DIR
+ls -l
+ls -l $TOOLS_DIR/jq/jq
 echo "[*] Launching Certspotter"
 curl -s "https://api.certspotter.com/v1/issuances?domain=$TARGET&expand=dns_names" | .$TOOLS_DIR/jq/jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | grep $TARGET > $OUT_DIR/certspotter.txt &
+ls -l
 
 echo "[*] Launching Crt.sh"
 curl -s "https://crt.sh/?q=%.$TARGET" | grep $TARGET | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " > $OUT_DIR/crtsh.txt &
@@ -60,6 +65,7 @@ echo "[*] Waiting until all scripts complete..."
 wait
 
 cd $OUT_DIR
+ls -l
 (cat subscraper.txt sublist3r.txt assetfinder.txt subfinder.txt findomain.txt amass.txt certspotter.txt crtsh.txt | sort -u) > $OUTPUT
 rm subscraper.txt sublist3r.txt assetfinder.txt subfinder.txt findomain.txt amass.txt certspotter.txt crtsh.txt
 
